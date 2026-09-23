@@ -93,4 +93,14 @@ class ChatViewModel(
     fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }
+
+    fun clearChat() {
+        viewModelScope.launch {
+            historyDao?.clearHistory()
+            _uiState.value = _uiState.value.copy(
+                messages = emptyList(),
+                error = null
+            )
+        }
+    }
 }
